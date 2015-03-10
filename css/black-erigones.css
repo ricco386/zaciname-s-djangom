@@ -1,0 +1,16 @@
+/**
+ * Updated Black theme for reveal.js with Erigones logo.
+ *
+ */
+
+/*********************************************
+ * GLOBAL STYLES
+ *********************************************/
+body {
+  background: #222;
+  background-color: #222; 
+  background-image: url("../img/erigones-logo-transparent.png");
+  background-position: left bottom; /*Positioning*/
+  background-repeat: no-repeat; /*Prevent showing multiple background images*/
+}
+

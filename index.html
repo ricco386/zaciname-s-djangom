@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Začíname s Djangom</title>
+
+    <meta name="description" content="Úvod do programovania s Django Frameworkom.">
+    <meta name="author" content="Richard Kellner">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/black-erigones.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+
+        <section>
+          <h1>Začíname s Djangom</h1>
+          <h3>Úvod do programovania s Django Frameworkom.</h3>
+          <p>
+            <small><a href="https://twitter.com/RicCo386" target="_blank">@RicCo386</a> / <a href="https://www.erigones.com" target="_blank">Erigones.com</a> / <a href="https://github.com/ricco386" target="_blank">Github</a></small>
+          </p>
+        </section> <!-- slide 1 -->
+
+        <section>
+          <section>
+            <h2>Inštalácia</h2>
+            <p>Oficialna inštalačná príručka: <a href="https://docs.djangoproject.com/en/1.7/topics/install/">https://docs.djangoproject.com/en/1.7/topics/install/</a></p>
+          </section>
+          <section>
+            <h2>Python 3.4</h2>
+            <p>Vytvoríme a aktivujeme adresár envs3 pre lokálne závislosti</p>
+            <p>
+              <code>
+                python3 -m venv envs3<br/><small>(alternativne: pyvenv envs3)</small><br/>
+                source envs3/bin/activate<br/>
+                pip install django
+              </code>
+            </p>
+          </section>
+          <section>
+            <h2>Python 2.7</h2>
+            <p>Vytvoríme a aktivujeme adresár envs pre lokálne závislosti</p>
+            <p>
+              <code>
+                virtualenv envs<br/>
+                source envs/bin/activate<br/>
+                pip install django
+              </code>
+            </p>
+            <p>
+              <small>Pokiaľ nemáte pip alebo virtualenv nainštalované, balíky <strong>python-pip, python-virtualenv</strong> sa nachádzajú v štandardných repozitároch Fedora, Ubuntu.</small>
+            </p>
+          </section> <!-- slide 2 -->
+        </section>
+
+        <section id="fragments">
+          <h2>Prvá Django app</h2>
+          <p class="fragment">django-admin.py startproject konferencia</p>
+          <p class="fragment roll-in">python manage.py migrate</p>
+          <p class="fragment">python manage.py runserver</p>
+          <p class="fragment roll-in">python manage.py startapp mailinglist</p>
+        </section> <!-- slide 3 -->
+ 
+        <section>
+          <h2>Modely</h2>
+          <p>vi mailinglist/models.py</p>
+          <p>python manage.py makemigrations mailinglist<br /><small>RAW SQL: python manage.py sqlmigrate mailinglist 0001</small></p>
+          <p>python manage.py migrate</p>
+
+          <aside class="notes">
+            <code>
+            from django.db import models
+
+
+            class Subscribers(models.Model):
+                email = models.CharField(max_length=255)
+                subscribed_date = models.DateTimeField('Date subscribed')
+
+
+            class MailingLists(models.Model):
+                name = models.CharField(max_length=50)
+                subscriber = models.ForeignKey(Subscribers) 
+            </code>
+          </aside>
+        </section> <!-- slide 4 -->
+
+      </div>
+    </div>
+
+    <script src="reveal.js/lib/js/head.min.js"></script>
+    <script src="reveal.js/js/reveal.js"></script>
+
+    <script>
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+
+  </body>
+</html>
+
