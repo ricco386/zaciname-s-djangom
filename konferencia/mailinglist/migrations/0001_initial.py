@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='MailingLists',
+            name='MailingList',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=50)),
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Subscribers',
+            name='Subscriber',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('email', models.CharField(max_length=255)),
@@ -32,9 +32,9 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.AddField(
-            model_name='mailinglists',
+            model_name='mailinglist',
             name='subscriber',
-            field=models.ForeignKey(to='mailinglist.Subscribers'),
+            field=models.ManyToManyField(to='mailinglist.Subscriber'),
             preserve_default=True,
         ),
     ]
