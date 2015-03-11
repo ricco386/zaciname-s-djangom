@@ -40,7 +40,7 @@
     <div class="reveal">
       <div class="slides">
 
-        <section>
+        <section data-transition="zoom">
           <h1>Začíname s Djangom</h1>
           <h3>Úvod do programovania s Django Frameworkom.</h3>
           <p>
@@ -51,11 +51,11 @@
         </section> <!-- slide 1 -->
 
         <section>
-          <section>
+          <section data-transition="convex">
             <h2>Inštalácia</h2>
             <p>Oficialna inštalačná príručka: <a href="https://docs.djangoproject.com/en/1.7/topics/install/">https://docs.djangoproject.com/en/1.7/topics/install/</a></p>
           </section>
-          <section>
+          <section ddata-transition="convex">
             <h2>Python 3.4</h2>
             <p>Vytvoríme a aktivujeme adresár envs3 pre lokálne závislosti</p>
             <p>
@@ -64,7 +64,7 @@
             pip install django
             </p>
           </section>
-          <section>
+          <section data-transition="convex">
             <h2>Python 2.7</h2>
             <p>Vytvoríme a aktivujeme adresár envs pre lokálne závislosti</p>
             <p>
@@ -78,12 +78,12 @@
           </section> <!-- slide 2 -->
         </section>
 
-        <section id="fragments">
+        <section>
           <h2>Prvá Django app</h2>
-          <p class="fragment">django-admin.py startproject konferencia</p>
-          <p class="fragment roll-in">python manage.py migrate</p>
-          <p class="fragment">python manage.py runserver</p>
-          <p class="fragment roll-in">python manage.py startapp mailinglist</p>
+          <p>django-admin.py startproject konferencia</p>
+          <p>python manage.py migrate</p>
+          <p>python manage.py runserver</p>
+          <p>python manage.py startapp mailinglist</p>
 
           <aside class="notes">
           <pre>
@@ -99,13 +99,10 @@ konferencia/
         </section> <!-- slide 3 -->
  
         <section>
-          <h2>Modely</h2>
-          <p>vim mailinglist/models.py</p>
-          <p>python manage.py makemigrations mailinglist<br /><small>RAW SQL: python manage.py sqlmigrate mailinglist 0001</small></p>
-          <p>python manage.py migrate</p>
-
-          <aside class="notes">
-          <pre><code>
+          <section data-transition="convex">
+            <h2>Modely</h2>
+            <p>vim mailinglist/models.py</p>
+            <pre><code>
 from django.db import models
 
 
@@ -117,8 +114,12 @@ class Subscriber(models.Model):
 class MailingList(models.Model):
     name = models.CharField(max_length=50)
     subscriber = models.ManyToManyField(Subscriber)
-          </code></pre>
-          </aside>
+            </code></pre>
+          </section>
+          <section data-transition="convex">
+            <p>python manage.py makemigrations mailinglist<br /><small>RAW SQL: python manage.py sqlmigrate mailinglist 0001</small></p>
+            <p>python manage.py migrate</p>
+          </section>
         </section> <!-- slide 4 -->
 
         <section>
@@ -146,7 +147,7 @@ def __str__(self):  # __unicode__ on Python 2
         </section> <!-- slide 5 -->
 
         <section>
-          <section>
+          <section data-transition="convex">
             <h2>Views</h2>
             <p>vim mailinglist/views.py<br />
             <pre><code>
@@ -158,7 +159,7 @@ def index(request):
             </code></pre>
             </p>
           </section>
-          <section>
+          <section data-transition="convex">
             <p>vim mailinglist/urls.py<br />
             <pre><code>
 from mailinglist import views
@@ -169,7 +170,7 @@ urlpatterns = patterns('',
             </code></pre>
             </p>
           </section>
-          <section>
+          <section data-transition="convex">
             <p>vim konferencia/urls.py</p>
             <pre><code>
 from django.contrib import admin
