@@ -59,22 +59,18 @@
             <h2>Python 3.4</h2>
             <p>Vytvoríme a aktivujeme adresár envs3 pre lokálne závislosti</p>
             <p>
-              <code>
-                python3 -m venv envs3<br/><small>(alternativne: pyvenv envs3)</small><br/>
-                source envs3/bin/activate<br/>
-                pip install django
-              </code>
+            python3 -m venv envs3<br/><small>(alternativne: pyvenv envs3)</small><br/>
+            source envs3/bin/activate<br/>
+            pip install django
             </p>
           </section>
           <section>
             <h2>Python 2.7</h2>
             <p>Vytvoríme a aktivujeme adresár envs pre lokálne závislosti</p>
             <p>
-              <code>
-                virtualenv envs<br/>
-                source envs/bin/activate<br/>
-                pip install django
-              </code>
+            virtualenv envs<br/>
+            source envs/bin/activate<br/>
+            pip install django
             </p>
             <p>
               <small>Pokiaľ nemáte pip alebo virtualenv nainštalované, balíky <strong>python-pip, python-virtualenv</strong> sa nachádzajú v štandardných repozitároch Fedora, Ubuntu.</small>
@@ -107,39 +103,79 @@
           <p>python manage.py migrate</p>
 
           <aside class="notes">
-            <code>
-            from django.db import models
+          <pre><code>
+from django.db import models
 
 
-            class Subscriber(models.Model):
-                email = models.CharField(max_length=255)
-                subscribed_date = models.DateTimeField('Date subscribed')
+class Subscriber(models.Model):
+    email = models.CharField(max_length=255)
+    subscribed_date = models.DateTimeField('Date subscribed')
 
 
-            class MailingList(models.Model):
-                name = models.CharField(max_length=50)
-                subscriber = models.ManyToManyField(Subscriber)
-            </code>
+class MailingList(models.Model):
+    name = models.CharField(max_length=50)
+    subscriber = models.ManyToManyField(Subscriber)
+          </code></pre>
           </aside>
         </section> <!-- slide 4 -->
 
         <section>
           <h2>Admin</h2>
           <p>python manage.py createsuperuser</p>
-          <p>vim mailinglist/admin.py</p>
+          <p>vim mailinglist/admin.py<br />
+          <pre><code>
+from mailinglist.models import Subscriber, MailingList
 
-          <aside class="notes">
-            <code>
-            from mailinglist.models import Subscriber, MailingList
+class SubscriberAdmin(admin.ModelAdmin):
+    list_display = ('email', 'subscribed_date')
 
-            class SubscriberAdmin(admin.ModelAdmin):
-                list_display = ('email', 'subscribed_date')
+admin.site.register(Subscriber, SubscriberAdmin)
+admin.site.register(MailingList)
+          </code></pre>
+          </p>
 
-            admin.site.register(Subscriber, SubscriberAdmin)
-            admin.site.register(MailingList)
-            </code>
+          <aside class="notes">:
+          <pre><code>
+def __str__(self):  # __unicode__ on Python 2
+    return self.email
+          </code></pre>
           </aside>
         </section> <!-- slide 5 -->
+
+        <section>
+          <h2>Views</h2>
+          <p>vim mailinglist/views.py<br />
+          <pre><code>
+# -*- coding: utf-8 -*-
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse(u'Ahoj Svet. Práve sa nachádzame v mailinglistovom indexe.') 
+          </code></pre>
+          </p>
+          <p>vim mailinglist/urls.py<br />
+          <pre><code>
+from mailinglist import views
+
+urlpatterns = patterns('',
+    url(r'^$', views.index, name='index'),
+)
+          </code></pre>
+          </p>
+          <p>vim konferencia/urls.py</p>
+
+          <aside class="notes">
+          <pre><code>
+from django.contrib import admin
+
+urlpatterns = patterns('',
+    url(r'^ml/', include('mailinglist.urls')),
+    url(r'^admin/', include(admin.site.urls)),
+)
+          </code></pre>
+          </aside>
+        </section> <!-- slide 6 -->
+
 
         <section>
           <h2>Ďakujem za pozornosť</h2>
