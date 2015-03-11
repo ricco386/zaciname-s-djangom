@@ -1,0 +1,8 @@
+<h1>{{ ml.name }}</h1>
+<form method="post" action="">
+  {% csrf_token %}
+  <table>
+    {{ form }}
+  </table>
+  <input type="submit" value="Prihlasiť do mailinglistu"/>
+</form>
