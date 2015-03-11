@@ -102,7 +102,7 @@
  
         <section>
           <h2>Modely</h2>
-          <p>vi mailinglist/models.py</p>
+          <p>vim mailinglist/models.py</p>
           <p>python manage.py makemigrations mailinglist<br /><small>RAW SQL: python manage.py sqlmigrate mailinglist 0001</small></p>
           <p>python manage.py migrate</p>
 
@@ -111,17 +111,32 @@
             from django.db import models
 
 
-            class Subscribers(models.Model):
+            class Subscriber(models.Model):
                 email = models.CharField(max_length=255)
                 subscribed_date = models.DateTimeField('Date subscribed')
 
 
-            class MailingLists(models.Model):
+            class MailingList(models.Model):
                 name = models.CharField(max_length=50)
-                subscriber = models.ForeignKey(Subscribers) 
+                subscriber = models.ManyToManyField(Subscriber)
             </code>
           </aside>
         </section> <!-- slide 4 -->
+
+        <section>
+          <h2>Admin</h2>
+          <p>python manage.py createsuperuser</p>
+          <p>vim mailinglist/admin.py</p>
+
+          <aside class="notes">
+            <code>
+            from mailinglist.models import Subscriber, MailingList
+
+            admin.site.register(Subscriber)
+            admin.site.register(MailingList)
+            </code>
+          </aside>
+        </section> <!-- slide 5 -->
 
         <section>
           <h2>Ďakujem za pozornosť</h2>
