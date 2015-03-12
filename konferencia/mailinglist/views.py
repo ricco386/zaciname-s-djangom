@@ -5,7 +5,7 @@ from mailinglist.models import MailingList
 from mailinglist.forms import SubscribeForm
 
 def index(request):
-    return HttpResponse(u'Ahoj Svet. Práve sa nachádzame v mailinglistovom indexe.')
+    return HttpResponse(u'Ahoj Svet. Práve ste v mailinglistovom indexe.')
 
 def mlist(request, list_id):
     try:
