@@ -84,7 +84,7 @@
           <p>python manage.py migrate</p>
           <p>python manage.py runserver</p>
           <p>python manage.py startapp mailinglist</p>
-
+          <p>vim konferencia/settings.py<br /><small>Pridať novo vytvorenú aplikáciu medzi INSTALLED_APPS</small></p>
           <aside class="notes">
           <pre>
 konferencia/
@@ -109,7 +109,7 @@ class Subscriber(models.Model):
     subscribed_date = models.DateTimeField('Date subscribed', auto_now_add=True, blank=True)
 
     def __str__(self):  # __unicode__ on Python 2
-        return self.name
+        return self.email
 
 class MailingList(models.Model):
     name = models.CharField(max_length=50)
@@ -172,7 +172,8 @@ def index(request):
           </section>
           <section data-transition="convex">
             <p>vim mailinglist/urls.py<br />
-            <pre><code>from mailinglist import views
+            <pre><code>from django.conf.urls import patterns, url
+from mailinglist import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
@@ -181,7 +182,8 @@ urlpatterns = patterns('',
           </section>
           <section data-transition="convex">
             <p>vim konferencia/urls.py</p>
-            <pre><code>from django.contrib import admin
+            <pre><code>from django.conf.urls import patterns, include, url
+from django.contrib import admin
 
 urlpatterns = patterns('',
     url(r'^ml/', include('mailinglist.urls')),
@@ -195,8 +197,8 @@ urlpatterns = patterns('',
             <h2>View čo aj niečo robia</h2>
             <p>vim mailinglist/views.py<br />
             <pre><code># -*- coding: utf-8 -*-
-from django.shortcuts import render
 from django.http import HttpResponse, Http404
+from django.shortcuts import render
 from mailinglist.models import MailingList
 
 def mlist(request, list_id):
@@ -213,7 +215,8 @@ def subscribe(request, list_id):
           </section>
           <section data-transition="convex">
             <p>vim mailinglist/urls.py<br />
-            <pre><code>from mailinglist import views
+            <pre><code>from django.conf.urls import patterns, url
+from mailinglist import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
