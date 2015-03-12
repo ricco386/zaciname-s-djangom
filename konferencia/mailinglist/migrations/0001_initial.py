@@ -24,8 +24,8 @@ class Migration(migrations.Migration):
             name='Subscriber',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('email', models.CharField(max_length=255)),
-                ('subscribed_date', models.DateTimeField(verbose_name=b'Date subscribed')),
+                ('email', models.EmailField(max_length=255)),
+                ('subscribed_date', models.DateTimeField(auto_now_add=True, verbose_name=b'D\xc3\xa1tum prihl\xc3\xa1senia')),
             ],
             options={
             },

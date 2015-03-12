@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 
 
 class Subscriber(models.Model):
-    email = models.CharField(max_length=255)
-    subscribed_date = models.DateTimeField('Date subscribed')
+    email = models.EmailField(max_length=255)
+    subscribed_date = models.DateTimeField('Dátum prihlásenia', auto_now_add=True, blank=True)
 
     def __str__(self):  # __unicode__ on Python 2
         return self.email
