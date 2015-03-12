@@ -60,3 +60,6 @@ target/
 
 # OS files
 .DS_Store
+
+# Tools data storage
+.idea/
