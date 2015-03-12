@@ -307,7 +307,7 @@ Prečo používame pomocné funkcie ako get_object_or_404 namiesto toho aby sme 
             <pre><code><h1>{{ ml.name }}</h1>
 <form method="post" action="">
   {% csrf_token %}
-  <table> {{ form }} </table>
+  {{ form.as_p }}
   <input type="submit" value="Prihlasiť do mailinglistu"/>
 </form></code></pre>
             </p>
