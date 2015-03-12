@@ -130,7 +130,8 @@ class MailingList(models.Model):
             <h2>Tvorba Admina</h2>
             <p>python manage.py createsuperuser</p>
             <p>vim mailinglist/admin.py<br />
-            <pre><code>from mailinglist.models import Subscriber, MailingList
+            <pre><code>from django.contrib import admin
+from mailinglist.models import Subscriber, MailingList
 
 admin.site.register(Subscriber)
 admin.site.register(MailingList)</code></pre>
@@ -258,8 +259,8 @@ class SubscribeForm(ModelForm):
           <section data-transition="convex">
             <p>vim mailinglist/views.py</p>
             <pre><code>from django.shortcuts import render, get_object_or_404, redirect
-from mailinglist.models import MailingList
 from mailinglist.forms import SubscribeForm
+from mailinglist.models import MailingList
 
 def subscribe(request, list_id):
     ml = get_object_or_404(MailingList, pk=list_id)
