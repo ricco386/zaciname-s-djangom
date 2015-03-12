@@ -207,7 +207,7 @@ def mlist(request, list_id):
     return render(request, 'mailinglist/mlist.html', {'ml': ml})
 
 def subscribe(request, list_id):
-    return HttpResponse(u'Práve sa zapisujete do mailinglistu: %s' 
+    return HttpResponse(u'Práve sa zapisujete do mailinglistu: %s'
                         % list_id)</code></pre>
             </p>
           </section>
@@ -217,12 +217,25 @@ def subscribe(request, list_id):
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
-    url(r'^(?P<list_id\>d+)/$', views.mlist, name='mlist'),
-    url(r'^(?P<list_id\>d+)/subscribe/$', views.subscribe, 
+    url(r'^(?P<list_id>\d+)/$', views.mlist, name='mlist'),
+    url(r'^(?P<list_id>\d+)/subscribe/$', views.subscribe,
                                             name='subscribe'),
 )</code></pre>
             </p>
           </section>
+          <section data-transition="convex">
+            <h2>Prvý template</h2>
+            <p>mkdir -p mailinglist/templates/mailinglist</p>
+            <p>vim mailinglist/templates/mailinglist/mlist.html<br />
+            <pre><code><h1>{{ ml.name }}</h1>
+<ul>
+{% for scb in ml.subscriber.all %}
+  <li>{{ scb.email }} ({{ scb.subscribed_date }})</li>
+{% endfor %}
+</ul></code></pre>
+            </p>
+          </section>
+
         </section> <!-- slide 7 -->
 
         <section>
@@ -237,16 +250,6 @@ class SubscribeForm(ModelForm):
     class Meta:
         model = Subscriber
         fields = ('email',)</code></pre>
-            </p>
-          </section>
-          <section data-transition="convex">
-            <p>vim mailinglist/templates/mailinglist/subscribe.html<br />
-            <pre><code><h1>{{ ml.name }}</h1>
-<form method="post" action="">
-  {% csrf_token %}
-  <table> {{ form }} </table>
-  <input type="submit" value="Prihlasiť do mailinglistu"/>
-</form></code></pre>
             </p>
           </section>
           <section data-transition="convex">
@@ -267,6 +270,16 @@ def subscribe(request, list_id):
         form = SubscribeForm
     return render(request, 'mailinglist/subscribe.html',
                   {'ml': ml, 'form': form})</code></pre>
+          </section>
+          <section data-transition="convex">
+            <p>vim mailinglist/templates/mailinglist/subscribe.html<br />
+            <pre><code><h1>{{ ml.name }}</h1>
+<form method="post" action="">
+  {% csrf_token %}
+  <table> {{ form }} </table>
+  <input type="submit" value="Prihlasiť do mailinglistu"/>
+</form></code></pre>
+            </p>
           </section>
         </section> <!-- slide 8 -->
 
