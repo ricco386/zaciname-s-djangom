@@ -1,6 +1,6 @@
 # ZAČÍNAME S DJANGOM
 
-Úvod do programovania s [Django frameworkom](https://www.djangoproject.com/)
+Úvod do web programovania s [Django frameworkom](https://www.djangoproject.com/).
 
 Projekt bol vytvorený ako [prezentácia](https://ricco386.github.io/zaciname-s-djangom/) na Bratislavský [OSS víkend 2015](http://ossden.soit.sk/index.php/ossvikendmenu).
 
