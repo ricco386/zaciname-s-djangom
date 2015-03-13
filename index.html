@@ -69,6 +69,9 @@ MVC softwareový je návrhový vzor pre implementáciu užívateľských rozhran
             source envs3/bin/activate<br/>
             pip install django
             </p>
+            <aside class="notes">
+venv oficialny python modul, ktorý umožnuje vytvárať izolované virtuálne prostredie, čo umožnuje inštalovať balíky rôznych verzií nezávisle na balíkoch nainštalovaných v OS.
+            </aside>
           </section>
           <section data-transition="convex">
             <h2>Inštalácia v Python 2.7</h2>
@@ -81,6 +84,9 @@ MVC softwareový je návrhový vzor pre implementáciu užívateľských rozhran
             <p>
               <small>Pokiaľ nemáte pip alebo virtualenv nainštalované, balíky <strong>python-pip, python-virtualenv</strong> sa nachádzajú v štandardných repozitároch Fedora, Ubuntu.</small>
             </p>
+            <aside class="notes">
+virtualenv predchodca venv, ktorý je využívaný hlavne v pythone 2.x
+            </aside>
           </section> <!-- slide 2 -->
         </section>
 
@@ -92,15 +98,7 @@ MVC softwareový je návrhový vzor pre implementáciu užívateľských rozhran
           <p>python manage.py startapp mailinglist</p>
           <p>vim konferencia/settings.py<br /><small>Pridať novo vytvorenú aplikáciu medzi INSTALLED_APPS</small></p>
           <aside class="notes">
-          <pre>
-konferencia/
-  manage.py
-  konferencia/
-    __init__.py
-    settings.py
-    urls.py
-    wsgi.py
-          <pre>
+Projekt verzus Aplikácia: App je webová aplikácia čo niečo robí (mailinglist, blog, anketa), zatiaľ čo projekt je súbor konfigurácií a aplikácií pre webstránku. Projekt môže obsahovat niekoľko aplikácií, aplikácia môže byť vo viacerých projektoch.
           </aside>
         </section> <!-- slide 3 -->
  
@@ -123,11 +121,17 @@ class MailingList(models.Model):
 
     def __str__(self):  # __unicode__ on Python 2
         return self.name</code></pre>
+          <aside class="notes">
+Django využíva DRY (Don’t repeat yourself) princíp.
+          </aside>
           </section>
           <section data-transition="convex">
             <h2>Migrácie</h2>
             <p>python manage.py makemigrations mailinglist<br /><small>RAW SQL: python manage.py sqlmigrate mailinglist 0001</small></p>
             <p>python manage.py migrate</p>
+            <aside class="notes">
+Migrácia je zoznam zmien v modeloch. Po spusteni migrácie django vykoná všetky zmeny, ktoré sa udiali v modeloch a aplikuje ich na schému databázy.
+            </aside>
           </section>
         </section> <!-- slide 4 -->
 
@@ -142,6 +146,9 @@ from mailinglist.models import Subscriber, MailingList
 admin.site.register(Subscriber)
 admin.site.register(MailingList)</code></pre>
             </p>
+            <aside class="notes">
+Django pôvodne vzniklo v novinárskom prostredí, s veľmi jasným rozdielom medzi tvorcami obsahu a verejnou stránkou. Stránky na pridávanie, editovanie a mazanie obsahu databázy nepotrebujú veľa kreativity, preto túto časť Django generuje automaticky.            
+            </aside>
           </section>
           <section data-transition="convex">
             <h2>Modifikácia Admina</h2>
@@ -154,15 +161,14 @@ class SubscriberAdmin(admin.ModelAdmin):
 admin.site.register(Subscriber, SubscriberAdmin)
 admin.site.register(MailingList)</code></pre>
             </p>
-          </section>
-
-          <aside class="notes">
-          Updatnuť model __str__ metodou: automatická reprezentácia modelu v Djangu
-          <pre><code>
+            <aside class="notes">
+            Updatnuť model __str__ metodou: automatická reprezentácia modelu v Djangu
+            <pre><code>
 def __str__(self):  # __unicode__ on Python 2
     return self.email
-          </code></pre>
-          </aside>
+            </code></pre>
+            </aside>
+          </section>
         </section> <!-- slide 5 -->
 
         <section>
@@ -176,6 +182,9 @@ def index(request):
     return HttpResponse(u'Ahoj Svet.\
                         Práve ste v mailinglistovom indexe.')</code></pre>
             </p>
+            <aside class="notes">
+V Djangu je webstránka ale aj iný obsah doručený cez view. Každé view je reprezentované Pythonovou funkciou. Django vyberie view na základe URL, ktorá bola vyžiadaná.
+            </aside>
           </section>
           <section data-transition="convex">
             <p>vim mailinglist/urls.py<br />
@@ -185,6 +194,9 @@ from mailinglist import views
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
 )</code></pre>
+            <aside class="notes">
+Aby sa Django mohlo dostať z URL do view, používa takzvané URLconf mapy, čo je v podstate zoznam regulárnych výrazov s views.
+            </aside>
             </p>
           </section>
           <section data-transition="convex">
@@ -196,6 +208,9 @@ urlpatterns = patterns('',
     url(r'^ml/', include('mailinglist.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )</code></pre>
+            <aside class="notes">
+Ďalší krok je previazanie aplikačných URLconf s URLconf v projekte. Teraz máme previazanú aplikáciu s projektom a môžeme si pozrieť index view mailinglistu.
+            </aside>
           </section>
         </section> <!-- slide 6 -->
 
@@ -219,6 +234,9 @@ def subscribe(request, list_id):
     return HttpResponse(u'Práve sa zapisujete do mailinglistu: %s'
                         % list_id)</code></pre>
             </p>
+            <aside class="notes">
+Každé view je zodpovedné za vykonanie jednej z dvoch veci: vrátenie HttpResponse alebo hlásenie výnimky (exception)
+            </aside>
           </section>
           <section data-transition="convex">
             <p>vim mailinglist/urls.py<br />
@@ -244,6 +262,9 @@ urlpatterns = patterns('',
 {% endfor %}
 </ul></code></pre>
             </p>
+            <aside class="notes">
+Template slúži na oddelenie Pythonovej logiky od dizajnu a logiky, ktorá vytvára vzhľad stránky.
+            </aside>
           </section>
 
         </section> <!-- slide 7 -->
@@ -261,6 +282,9 @@ class SubscribeForm(ModelForm):
         model = Subscriber
         fields = ('email',)</code></pre>
             </p>
+            <aside class="notes">
+Django formuláre ušetria veľa času a snahy, pretože DRY princíp umožnuje automaticky generovať formular z modelu už s prednastavenou validáciou, či priame ukladanie, alebo mazanie databázového objektu.
+            </aside>
           </section>
           <section data-transition="convex">
             <p>vim mailinglist/views.py</p>
@@ -280,16 +304,22 @@ def subscribe(request, list_id):
         form = SubscribeForm
     return render(request, 'mailinglist/subscribe.html',
                   {'ml': ml, 'form': form})</code></pre>
-          </section>
+            <aside class="notes">
+Prečo používame pomocné funkcie ako get_object_or_404 namiesto toho aby sme pri odchitení výnimky ObjectDoesNotExist raisovali Http404? Pretože to by porušilo oddelenie model vrstvy od view vrstvy. Jedena z hlavných úloh Djanga je nemiešať vrstvy dokopy, avšak pomocné funkcie v django.shortcuts zjednodušujú prácu, pričom majú určitú kontrolovanú mieru miešania vrstiev.
+            </aside>
+            </section>
           <section data-transition="convex">
             <p>vim mailinglist/templates/mailinglist/subscribe.html<br />
             <pre><code><h1>{{ ml.name }}</h1>
 <form method="post" action="">
   {% csrf_token %}
-  <table> {{ form }} </table>
+  {{ form.as_p }}
   <input type="submit" value="Prihlasiť do mailinglistu"/>
 </form></code></pre>
             </p>
+            <aside class="notes">
+Django templaty používajú bodkovú notáciu na prístup k atribútom premennej.
+            </aside>
           </section>
         </section> <!-- slide 8 -->
 
