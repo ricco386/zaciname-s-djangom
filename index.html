@@ -299,7 +299,7 @@ def subscribe(request, list_id):
             ml.subscriber.add(subscriber)
             return redirect('mlist', list_id=list_id)
     else:
-        form = SubscribeForm
+        form = SubscribeForm()
     return render(request, 'mailinglist/subscribe.html',
                   {'ml': ml, 'form': form})</code></pre>
             <aside class="notes">
