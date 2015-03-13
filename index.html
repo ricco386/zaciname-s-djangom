@@ -42,21 +42,27 @@
 
         <section data-transition="zoom">
           <h1>Začíname s Djangom</h1>
-          <h3>Úvod do programovania s Django Frameworkom.</h3>
+          <h3>Úvod do web programovania s Django Frameworkom.</h3>
           <p>
-            <small><a href="https://twitter.com/RicCo386" target="_blank">@RicCo386</a> / <a href="https://www.erigones.com" target="_blank">Erigones.com</a> / <a href="https://github.com/ricco386" target="_blank">Github</a></small>
+            <small><a href="https://twitter.com/RicCo386" target="_blank">@RicCo386</a> / <a href="https://www.erigones.com" target="_blank">Erigones.com</a> / <a href="https://github.com/ricco386" target="_blank">Github/ricco386</a></small>
           </p>
           <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
           </a></p>
         </section> <!-- slide 1 -->
 
         <section>
-          <section data-transition="convex">
-            <h2>Inštalácia</h2>
-            <p>Oficialna inštalačná príručka: <a href="https://docs.djangoproject.com/en/1.7/topics/install/">https://docs.djangoproject.com/en/1.7/topics/install/</a></p>
-          </section>
+          <h2>Čo to Django je?</h2>
+          <p>Django je open source Python Web framework, ktorý využíva MVC (Model-View-Controllner) návrhový vzor.</p>
+          <p>Django zdôrazňuje DRY (dont repeat yourself) princíp, ale tiež prenositeľnosť komponentov, rýchly vývoj a znovupoužiteľnosť.</p>
+          <p>Oficialna stránka: <a href="https://djangoproject.com/">https://djangoproject.com/</a></p>
+          <aside class="notes">
+MVC softwareový je návrhový vzor pre implementáciu užívateľských rozhraní.
+          </aside>
+        </section>
+
+        <section>
           <section ddata-transition="convex">
-            <h2>Python 3.4</h2>
+            <h2>Inštalácia v Python 3.4</h2>
             <p>Vytvoríme a aktivujeme adresár envs3 pre lokálne závislosti</p>
             <p>
             python3 -m venv envs3<br/><small>(alternativne: pyvenv envs3)</small><br/>
@@ -65,7 +71,7 @@
             </p>
           </section>
           <section data-transition="convex">
-            <h2>Python 2.7</h2>
+            <h2>Inštalácia v Python 2.7</h2>
             <p>Vytvoríme a aktivujeme adresár envs pre lokálne závislosti</p>
             <p>
             virtualenv envs<br/>
