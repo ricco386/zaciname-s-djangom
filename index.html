@@ -56,7 +56,9 @@
           <p>Django zdôrazňuje DRY (dont repeat yourself) princíp, ale tiež prenositeľnosť komponentov, rýchly vývoj a znovupoužiteľnosť.</p>
           <p>Oficialna stránka: <a href="https://djangoproject.com/">https://djangoproject.com/</a></p>
           <aside class="notes">
-MVC softwareový je návrhový vzor pre implementáciu užívateľských rozhraní.
+<strong>Django je rýchle</strong>: bolo navrhnuté, aby developer mohol spracovať aplikáciu od konceptu až po dokončenie čo najrýchlejšie.<br />
+<strong>Veľa doplnkov</strong>: Django má desiatky doplnkov, ktoré je možno rovno použiť (autentifikácia, administrácia, sitemap, rss).<br />
+<strong>Bezpečné</strong>: vstavaná podpora voči SQL injekciam, cross site scriptingu, cross site request forgery a click jackingu, a tiež autentifikačný systém bezpečne ukladá heslá.
           </aside>
         </section> <!-- slide 2 -->
 
@@ -70,6 +72,7 @@ MVC softwareový je návrhový vzor pre implementáciu užívateľských rozhran
             pip install django
             </p>
             <aside class="notes">
+Django má plnú podporu pythonu 3.<br />
 venv oficialny python modul, ktorý umožnuje vytvárať izolované virtuálne prostredie, čo umožnuje inštalovať balíky rôznych verzií nezávisle na balíkoch nainštalovaných v OS.
             </aside>
           </section>
@@ -85,7 +88,7 @@ venv oficialny python modul, ktorý umožnuje vytvárať izolované virtuálne p
               <small>Pokiaľ nemáte pip alebo virtualenv nainštalované, balíky <strong>python-pip, python-virtualenv</strong> sa nachádzajú v štandardných repozitároch Fedora, Ubuntu.</small>
             </p>
             <aside class="notes">
-virtualenv predchodca venv, ktorý je využívaný hlavne v pythone 2.x
+virtualenv predchodca venv, ktorý je využívaný hlavne v pythone 2.x.
             </aside>
           </section> <!-- slide 3 -->
         </section>
@@ -98,7 +101,8 @@ virtualenv predchodca venv, ktorý je využívaný hlavne v pythone 2.x
           <p>python manage.py startapp mailinglist</p>
           <p>vim konferencia/settings.py<br /><small>Pridať novo vytvorenú aplikáciu medzi INSTALLED_APPS</small></p>
           <aside class="notes">
-Projekt verzus Aplikácia: App je webová aplikácia čo niečo robí (mailinglist, blog, anketa), zatiaľ čo projekt je súbor konfigurácií a aplikácií pre webstránku. Projekt môže obsahovat niekoľko aplikácií, aplikácia môže byť vo viacerých projektoch.
+<strong>Projekt verzus Aplikácia</strong>: App je webová aplikácia čo niečo robí (mailinglist, blog, anketa), zatiaľ čo projekt je súbor konfigurácií a aplikácií pre webstránku. Projekt môže obsahovat niekoľko aplikácií, aplikácia môže byť vo viacerých projektoch.<br />
+<strong>settings.py</strong>: nastavenie projektu, máme zapnutý DEBUG mód, pridáme našu app, a pozrieme konfiguráciu DB (používame SQL lite)
           </aside>
         </section> <!-- slide 4 -->
  
@@ -122,7 +126,8 @@ class MailingList(models.Model):
     def __str__(self):  # __unicode__ on Python 2
         return self.name</code></pre>
           <aside class="notes">
-Django využíva DRY (Don’t repeat yourself) princíp.
+Model je trieda, ktorá reprezentuje tabuľku v DB. Jej atribúty su jednotlivé stĺpce v DB. Django má veľa typov fieldov.<br />
+Každý model má implicitný primárny kľúč.
           </aside>
           </section>
           <section data-transition="convex">
@@ -148,7 +153,7 @@ admin.site.register(Subscriber)
 admin.site.register(MailingList)</code></pre>
             </p>
             <aside class="notes">
-Django pôvodne vzniklo v novinárskom prostredí, s veľmi jasným rozdielom medzi tvorcami obsahu a verejnou stránkou. Stránky na pridávanie, editovanie a mazanie obsahu databázy nepotrebujú veľa kreativity, preto túto časť Django generuje automaticky.            
+Django pôvodne vzniklo v novinárskom prostredí, s veľmi jasným rozdielom medzi tvorcami obsahu a verejnou stránkou. Stránky na pridávanie, editovanie a mazanie obsahu databázy nepotrebujú veľa kreativity, preto túto časť Django generuje automaticky.
             </aside>
           </section>
           <section data-transition="convex">
@@ -162,13 +167,6 @@ class SubscriberAdmin(admin.ModelAdmin):
 admin.site.register(Subscriber, SubscriberAdmin)
 admin.site.register(MailingList)</code></pre>
             </p>
-            <aside class="notes">
-            Updatnuť model __str__ metodou: automatická reprezentácia modelu v Djangu
-            <pre><code>
-def __str__(self):  # __unicode__ on Python 2
-    return self.email
-            </code></pre>
-            </aside>
           </section>
         </section> <!-- slide 6 -->
 
@@ -232,7 +230,9 @@ def subscribe(request, list_id):
                         % list_id)</code></pre>
             </p>
             <aside class="notes">
-Každé view je zodpovedné za vykonanie jednej z dvoch veci: vrátenie HttpResponse alebo hlásenie výnimky (exception)
+Každé view je zodpovedné za vykonanie jednej z dvoch veci: vrátenie HttpResponse alebo hlásenie výnimky (exception).<br />
+Prvý parameter je request (ostatné sú voliteľné).<br />
+ml je objekt modelu.
             </aside>
           </section>
           <section data-transition="convex">
@@ -260,7 +260,8 @@ urlpatterns = patterns('',
 </ul></code></pre>
             </p>
             <aside class="notes">
-Template slúži na oddelenie Pythonovej logiky od dizajnu a logiky, ktorá vytvára vzhľad stránky.
+Template slúži na oddelenie Pythonovej logiky od dizajnu a logiky, ktorá vytvára vzhľad stránky.<br />
+Django má vlastný jednoduchý templatovací jazyk.
             </aside>
           </section>
 
