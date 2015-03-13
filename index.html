@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="sk">
 
   <head>
     <meta charset="utf-8">
@@ -106,7 +106,7 @@ Projekt verzus Aplikácia: App je webová aplikácia čo niečo robí (mailingli
           <section data-transition="convex">
             <h2>Modely</h2>
             <p>vim mailinglist/models.py</p>
-            <pre><code>from django.db import models
+            <pre><code class="python">from django.db import models
 
 class Subscriber(models.Model):
     email = models.EmailField(max_length=255)
@@ -141,7 +141,7 @@ Migrácia je zoznam zmien v modeloch. Po spusteni migrácie django vykoná všet
             <h2>Tvorba Admina</h2>
             <p>python manage.py createsuperuser</p>
             <p>vim mailinglist/admin.py<br />
-            <pre><code>from django.contrib import admin
+            <pre><code class="python">from django.contrib import admin
 from mailinglist.models import Subscriber, MailingList
 
 admin.site.register(Subscriber)
@@ -154,7 +154,7 @@ Django pôvodne vzniklo v novinárskom prostredí, s veľmi jasným rozdielom me
           <section data-transition="convex">
             <h2>Modifikácia Admina</h2>
             <p>vim mailinglist/admin.py<br />
-            <pre><code>from mailinglist.models import Subscriber, MailingList
+            <pre><code class="python">from mailinglist.models import Subscriber, MailingList
 
 class SubscriberAdmin(admin.ModelAdmin):
     list_display = ('email', 'subscribed_date')
@@ -176,7 +176,7 @@ def __str__(self):  # __unicode__ on Python 2
           <section data-transition="convex">
             <h2>Prvé view</h2>
             <p>vim mailinglist/views.py<br />
-            <pre><code># -*- coding: utf-8 -*-
+            <pre><code class="python"># -*- coding: utf-8 -*-
 from django.http import HttpResponse
 
 def index(request):
@@ -190,7 +190,7 @@ V Djangu je webstránka ale aj iný obsah doručený cez view. Každé view je r
           <section data-transition="convex">
             <h2>Prvé URLs</h2>
             <p>vim mailinglist/urls.py<br />
-            <pre><code>from django.conf.urls import patterns, url
+            <pre><code class="python">from django.conf.urls import patterns, url
 from mailinglist import views
 
 urlpatterns = patterns('',
@@ -201,7 +201,7 @@ Aby sa Django mohlo dostať z URL do view, používa takzvané URLconf mapy, čo
             </aside>
             </p>
             <p>vim konferencia/urls.py</p>
-            <pre><code>from django.conf.urls import patterns, include, url
+            <pre><code class="python">from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 urlpatterns = patterns('',
@@ -218,7 +218,7 @@ urlpatterns = patterns('',
           <section data-transition="convex">
             <h2>Views čo aj niečo robia</h2>
             <p>vim mailinglist/views.py<br />
-            <pre><code># -*- coding: utf-8 -*-
+            <pre><code class="python"># -*- coding: utf-8 -*-
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from mailinglist.models import MailingList
@@ -240,7 +240,7 @@ Každé view je zodpovedné za vykonanie jednej z dvoch veci: vrátenie HttpResp
           </section>
           <section data-transition="convex">
             <p>vim mailinglist/urls.py<br />
-            <pre><code>from django.conf.urls import patterns, url
+            <pre><code class="python">from django.conf.urls import patterns, url
 from mailinglist import views
 
 urlpatterns = patterns('',
@@ -255,7 +255,7 @@ urlpatterns = patterns('',
             <h2>Prvý template</h2>
             <p>mkdir -p mailinglist/templates/mailinglist</p>
             <p>vim mailinglist/templates/mailinglist/mlist.html<br />
-            <pre><code><h1>{{ ml.name }}</h1>
+            <pre><code class="html"><h1>{{ ml.name }}</h1>
 <ul>
 {% for scb in ml.subscriber.all %}
   <li>{{ scb.email }} ({{ scb.subscribed_date }})</li>
@@ -273,7 +273,7 @@ Template slúži na oddelenie Pythonovej logiky od dizajnu a logiky, ktorá vytv
           <section data-transition="convex">
             <h2>Prihlasovací Formulár</h2>
             <p>vim mailinglist/forms.py<br />
-            <pre><code># -*- coding: utf-8 -*-
+            <pre><code class="python"># -*- coding: utf-8 -*-
 from django.forms import ModelForm
 from mailinglist.models import Subscriber
 
@@ -288,7 +288,7 @@ Django formuláre ušetria veľa času a snahy, pretože DRY princíp umožnuje 
           </section>
           <section data-transition="convex">
             <p>vim mailinglist/views.py</p>
-            <pre><code>from django.shortcuts import render, get_object_or_404, redirect
+            <pre><code class="python">from django.shortcuts import render, get_object_or_404, redirect
 from mailinglist.forms import SubscribeForm
 from mailinglist.models import MailingList
 
@@ -310,7 +310,7 @@ Prečo používame pomocné funkcie ako get_object_or_404 namiesto toho aby sme 
             </section>
           <section data-transition="convex">
             <p>vim mailinglist/templates/mailinglist/subscribe.html<br />
-            <pre><code><h1>{{ ml.name }}</h1>
+            <pre><code class="html"><h1>{{ ml.name }}</h1>
 <form method="post" action="">
   {% csrf_token %}
   {{ form.as_p }}
