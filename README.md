@@ -8,7 +8,7 @@ Prednáška je určená pre ľudí, ktorí by chceli začať programovať v Djan
 
 ### Abstrakt
 
-Povieme si ako nainštalovať Django. Spravime si jednoduchú aplikáciu, na ktorej si ukážeme dobré vlastnosti Djanga:
+Povieme si ako nainštalovať Django. Spravíme si jednoduchú aplikáciu, na ktorej si ukážeme dobré vlastnosti Djanga:
 
 * inštalácia v Linuxe
 * vytvorenie projektu a aplikácie
@@ -17,11 +17,11 @@ Povieme si ako nainštalovať Django. Spravime si jednoduchú aplikáciu, na kto
 * vytvorenie views a templateov
 * vytvorenie formulára
 
-V čase tvorby bola aktuálna verzia Djanga 1.7.6, pričom na verziu 1.7 sa odkazujú linky v materiály a na tejto verzii aj bol prezentovaný zdrojový kód v príkladoch.
+V čase tvorby bola aktuálna verzia Djanga 1.7.6, pričom na verziu 1.7 sa odkazujú linky v materiáli a na tejto verzii aj bol prezentovaný zdrojový kód v príkladoch.
 
 ### Ako ďalej?
 
-Prednáška iba načrtla možnosti, ktoré dokáže Django. Ak Vás zaujala a radi by ste sa venovali programovaniu s Django frameworkom ďalej, odporúčam sa pozrieť na [oficálnu dokumentáciu](https://docs.djangoproject.com/en/1.7/). Súčasťou dokumentácie je aj [návod](https://docs.djangoproject.com/en/1.7/intro/tutorial01/), pomocou ktorého možete nadviazať na prednášku a podrobnejšie si prečítať o jednotlivých častiach, ktoré boli aj súčasťou prednášky.
+Prednáška iba načrtla možnosti, ktoré Django ponúka. Ak Vás zaujala a radi by ste sa venovali programovaniu s Django frameworkom ďalej, odporúčam sa pozrieť na [oficálnu dokumentáciu](https://docs.djangoproject.com/en/1.7/). Súčasťou dokumentácie je aj [návod](https://docs.djangoproject.com/en/1.7/intro/tutorial01/), pomocou ktorého môžete nadviazať na prednášku a podrobnejšie si prečítať o jednotlivých častiach, ktoré boli aj súčasťou prednášky.
 
 ### Licencia
 
