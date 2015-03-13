@@ -127,8 +127,9 @@ Django využíva DRY (Don’t repeat yourself) princíp.
           </section>
           <section data-transition="convex">
             <h2>Migrácie</h2>
-            <p>python manage.py makemigrations mailinglist<br /><small>RAW SQL: python manage.py sqlmigrate mailinglist 0001</small></p>
+            <p>python manage.py makemigrations mailinglist</p>
             <p>python manage.py migrate</p>
+            <p><small>RAW SQL: python manage.py sqlmigrate mailinglist 0001</small></p>
             <aside class="notes">
 Migrácia je zoznam zmien v modeloch. Po spusteni migrácie django vykoná všetky zmeny, ktoré sa udiali v modeloch a aplikuje ich na schému databázy.
             </aside>
@@ -187,6 +188,7 @@ V Djangu je webstránka ale aj iný obsah doručený cez view. Každé view je r
             </aside>
           </section>
           <section data-transition="convex">
+            <h2>Prvé URLs</h2>
             <p>vim mailinglist/urls.py<br />
             <pre><code>from django.conf.urls import patterns, url
 from mailinglist import views
@@ -198,8 +200,6 @@ urlpatterns = patterns('',
 Aby sa Django mohlo dostať z URL do view, používa takzvané URLconf mapy, čo je v podstate zoznam regulárnych výrazov s views.
             </aside>
             </p>
-          </section>
-          <section data-transition="convex">
             <p>vim konferencia/urls.py</p>
             <pre><code>from django.conf.urls import patterns, include, url
 from django.contrib import admin
@@ -216,7 +216,7 @@ urlpatterns = patterns('',
 
         <section>
           <section data-transition="convex">
-            <h2>View čo aj niečo robia</h2>
+            <h2>Views čo aj niečo robia</h2>
             <p>vim mailinglist/views.py<br />
             <pre><code># -*- coding: utf-8 -*-
 from django.http import HttpResponse, Http404
