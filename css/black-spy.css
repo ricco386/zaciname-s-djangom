@@ -1,0 +1,16 @@
+/**
+ * Updated Black theme for reveal.js with SPy logo.
+ */
+
+/*********************************************
+ * GLOBAL STYLES
+ *********************************************/
+body {
+  background: #222;
+  background-color: #222; 
+  background-image: url("../img/pycon_sk.svg");
+  background-size: 150px 150px;
+  background-position: left bottom; /*Positioning*/
+  background-repeat: no-repeat; /*Prevent showing multiple background images*/
+}
+

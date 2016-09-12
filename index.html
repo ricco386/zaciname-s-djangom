@@ -16,7 +16,7 @@
 
     <link rel="stylesheet" href="reveal.js/css/reveal.css">
     <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
-    <link rel="stylesheet" href="css/black-erigones.css" id="theme">
+    <link rel="stylesheet" href="css/black-spy.css" id="theme">
 
     <!-- Code syntax highlighting -->
     <link rel="stylesheet" href="css/sunburst.css">
@@ -44,7 +44,7 @@
           <h1>Začíname s Djangom</h1>
           <h3>Úvod do web programovania s Django Frameworkom.</h3>
           <p>
-            <small><a href="https://twitter.com/RicCo386" target="_blank">@RicCo386</a> / <a href="https://www.erigones.com" target="_blank">Erigones.com</a> / <a href="https://github.com/ricco386" target="_blank">Github/ricco386</a></small>
+            <small><a href="https://twitter.com/RicCo386" target="_blank">@RicCo386</a> / <a href="https://pycon.sk/sk/spy.html" target="_blank">SPy o.z.</a> / <a href="https://github.com/ricco386" target="_blank">Github/ricco386</a></small>
           </p>
           <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
           </a></p>
@@ -64,7 +64,7 @@
 
         <section>
           <section ddata-transition="convex">
-            <h2>Inštalácia v Python 3.4</h2>
+            <h2>Inštalácia v Python 3.5</h2>
             <p>Vytvoríme a aktivujeme adresár envs3 pre lokálne závislosti</p>
             <p>
             python3 -m venv envs3<br/><small>(alternativne: pyvenv envs3)</small><br/>
@@ -159,7 +159,8 @@ Django pôvodne vzniklo v novinárskom prostredí, s veľmi jasným rozdielom me
           <section data-transition="convex">
             <h2>Modifikácia Admina</h2>
             <p>vim mailinglist/admin.py<br />
-            <pre><code class="python">from mailinglist.models import Subscriber, MailingList
+            <pre><code class="python">from django.contrib import admin
+from mailinglist.models import Subscriber, MailingList
 
 class SubscriberAdmin(admin.ModelAdmin):
     list_display = ('email', 'subscribed_date')
@@ -188,20 +189,20 @@ V Djangu je webstránka ale aj iný obsah doručený cez view. Každé view je r
           <section data-transition="convex">
             <h2>Prvé URLs</h2>
             <p>vim mailinglist/urls.py</p>
-            <pre><code class="python">from django.conf.urls import patterns, url
+            <pre><code class="python">from django.conf.urls import url
 from mailinglist import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$', views.index, name='index'),
-)</code></pre>
+]</code></pre>
             <p>vim konferencia/urls.py</p>
-            <pre><code class="python">from django.conf.urls import patterns, include, url
+            <pre><code class="python">from django.conf.urls import include, url
 from django.contrib import admin
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^ml/', include('mailinglist.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-)</code></pre>
+    url(r'^admin/', admin.site.urls),
+]</code></pre>
             <aside class="notes">
 Aby sa Django mohlo dostať z URL do view, používa takzvané URLconf mapy, čo je v podstate zoznam regulárnych výrazov s views.
 Ďalší krok je previazanie aplikačných URLconf s URLconf v projekte. Teraz máme previazanú aplikáciu s projektom a môžeme si pozrieť index view mailinglistu.
@@ -242,8 +243,8 @@ from mailinglist import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
-    url(r'^(?P<list_id>\d+)/$', views.mlist, name='mlist'),
-    url(r'^(?P<list_id>\d+)/subscribe/$', views.subscribe,
+    url(r'^(?P&#60;list_id&#62;\d+)/$', views.mlist, name='mlist'),
+    url(r'^(?P&#60;list_id&#62;\d+)/subscribe/$', views.subscribe,
                                             name='subscribe'),
 )</code></pre>
             </p>
