@@ -2,7 +2,7 @@
 
 Úvod do web programovania s [Django frameworkom](https://www.djangoproject.com/).
 
-Projekt bol vytvorený ako [prezentácia](https://ricco386.github.io/zaciname-s-djangom/) na Bratislavský [OSS víkend 2015](http://ossden.soit.sk/index.php/ossvikendmenu), updatnutý a prezentovaný na [Trinástom Bratislavskom Python Meetupe](https://2016.pycon.sk/sk/ba-13-meetup.html).
+Projekt bol vytvorený ako [prezentácia](https://ricco386.github.io/zaciname-s-djangom/) na Bratislavský [OSS víkend 2015](http://ossden.soit.sk/index.php/ossvikendmenu), updatnutý a prezentovaný na [Trinástom Bratislavskom Python Meetupe](https://2016.pycon.sk/sk/ba-13-meetup.html) a [Kôlničke](https://www.facebook.com/events/1783622468543805/).
 
 Prednáška je určená pre ľudí, ktorí by chceli začať programovať v Djangu. Ale tiež pre ľudí, ktorí už programujú v iných jazykoch a radi by sa pozreli ako sa pracuje s jedným z najrozšírenejších Pythonových frameworkov.
 
@@ -17,7 +17,7 @@ Povieme si ako nainštalovať Django. Spravíme si jednoduchú aplikáciu, na kt
 * vytvorenie views a templateov
 * vytvorenie formulára
 
-V čase poslednej prednášky bola aktuálna verzia Djanga 1.10.1, pričom na verziu 1.10 sa odkazujú linky v materiáli a na tejto verzii aj bol prezentovaný zdrojový kód v príkladoch.
+V čase poslednej prednášky bola aktuálna verzia Djanga 1.10.3, pričom na verziu 1.10 sa odkazujú linky v materiáli a na tejto verzii aj bol prezentovaný zdrojový kód v príkladoch. Prvá prezentácia bol na verzii Djanga 1.8
 
 ### Ako ďalej?
 
