@@ -1,11 +1,9 @@
-from django.conf.urls import url
-
+from django.urls import path
 from mailinglist import views
 
-
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^(?P<list_id>\d+)/$', views.mlist, name='mlist'),
-    url(r'^(?P<list_id>\d+)/subscribe/$', views.subscribe, name='subscribe'),
+    path('', views.index, name='index'),
+    path('<int:list_id>/', views.mlist, name='mlist'),
+    path('<int:list_id>/subscribe/', views.subscribe,
+                                      name='subscribe'),
 ]
-
