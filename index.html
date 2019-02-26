@@ -64,7 +64,7 @@
 
         <section>
           <section ddata-transition="convex">
-            <h2>Inštalácia v Python 3.5</h2>
+            <h2>Inštalácia v Python 3.7</h2>
             <p>Vytvoríme a aktivujeme adresár envs3 pre lokálne závislosti</p>
             <p>
             python3 -m venv envs3<br/><small>(alternativne: pyvenv envs3)</small><br/>
@@ -78,7 +78,8 @@ venv oficialny python modul, ktorý umožnuje vytvárať izolované virtuálne p
           </section>
           <section data-transition="convex">
             <h2>Inštalácia v Python 2.7</h2>
-            <p>Vytvoríme a aktivujeme adresár envs pre lokálne závislosti</p>
+	    <p>Django &gt; 2.0 nepodporuje "legacy" Python 2.</p>
+	    <p>Vytvoríme a aktivujeme adresár envs pre lokálne závislosti:</p>
             <p>
             virtualenv envs<br/>
             source envs/bin/activate<br/>
@@ -88,6 +89,9 @@ venv oficialny python modul, ktorý umožnuje vytvárať izolované virtuálne p
               <small>Pokiaľ nemáte pip alebo virtualenv nainštalované, balíky <strong>python-pip, python-virtualenv</strong> sa nachádzajú v štandardných repozitároch Fedora, Ubuntu.</small>
             </p>
             <aside class="notes">
+Python 2, je podporovany do 1.1.2020
+Django 1.11 LTS bude podporovane do Apríla 2020.
+Django 2.2 LTS bude zverejné v Q1 2019 a podporované 3 roky.
 virtualenv predchodca venv, ktorý je využívaný hlavne v pythone 2.x.
             </aside>
           </section> <!-- slide 3 -->
@@ -96,16 +100,56 @@ virtualenv predchodca venv, ktorý je využívaný hlavne v pythone 2.x.
         <section>
           <h2>Prvá Django app</h2>
           <p>django-admin.py startproject konferencia</p>
-          <p>python manage.py migrate</p>
           <p>python manage.py runserver</p>
           <p>python manage.py startapp mailinglist</p>
           <p>vim konferencia/settings.py<br /><small>Pridať novo vytvorenú aplikáciu medzi INSTALLED_APPS</small></p>
           <aside class="notes">
 <strong>Projekt verzus Aplikácia</strong>: App je webová aplikácia čo niečo robí (mailinglist, blog, anketa), zatiaľ čo projekt je súbor konfigurácií a aplikácií pre webstránku. Projekt môže obsahovat niekoľko aplikácií, aplikácia môže byť vo viacerých projektoch.<br />
-<strong>settings.py</strong>: nastavenie projektu, máme zapnutý DEBUG mód, pridáme našu app, a pozrieme konfiguráciu DB (používame SQL lite)
+<strong>settings.py</strong>: nastavenie projektu, máme zapnutý DEBUG mód, pridáme našu app, a pozrieme konfiguráciu DB (používame SQL lite)<br />
+wget -O envs3/bin/django_bash_completion.sh https://raw.github.com/django/django/master/extras/django_bash_completion &amp;&amp; source envs3/bin/django_bash_completion.sh
           </aside>
         </section> <!-- slide 4 -->
- 
+
+        <section>
+          <section data-transition="convex">
+            <h2>Prvé view</h2>
+            <p>vim mailinglist/views.py<br />
+            <pre><code class="python"># -*- coding: utf-8 -*-
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse('Ahoj Svet.\
+                        Práve ste v mailinglistovom indexe.')</code></pre>
+            </p>
+            <aside class="notes">
+V Djangu je webstránka ale aj iný obsah doručený cez view. Každé view je reprezentované Pythonovou funkciou. Django vyberie view na základe URL, ktorá bola vyžiadaná.
+            </aside>
+          </section>
+          <section data-transition="convex">
+            <h2>Prvé URLs</h2>
+            <p>vim mailinglist/urls.py</p>
+            <pre><code class="python">from django.urls import path
+from mailinglist import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]</code></pre>
+            <p>vim konferencia/urls.py</p>
+            <pre><code class="python">from django.contrib import admin
+from django.urls import path
+from django.conf.urls import include
+
+urlpatterns = [
+    path('ml/', include('mailinglist.urls')),
+    path('admin/', admin.site.urls),
+]</code></pre>
+            <aside class="notes">
+Aby sa Django mohlo dostať z URL do view, používa takzvané URLconf mapy, čo je v podstate zoznam regulárnych výrazov s views.
+Ďalší krok je previazanie aplikačných URLconf s URLconf v projekte. Teraz máme previazanú aplikáciu s projektom a môžeme si pozrieť index view mailinglistu.
+            </aside>
+          </section>
+        </section> <!-- slide 5 -->
+
         <section>
           <section data-transition="convex">
             <h2>Modely</h2>
@@ -139,7 +183,7 @@ Každý model má implicitný primárny kľúč.
 Migrácia je zoznam zmien v modeloch. Po spusteni migrácie django vykoná všetky zmeny, ktoré sa udiali v modeloch a aplikuje ich na schému databázy.
             </aside>
           </section>
-        </section> <!-- slide 5 -->
+        </section> <!-- slide 6 -->
 
         <section>
           <section data-transition="convex">
@@ -169,45 +213,6 @@ admin.site.register(Subscriber, SubscriberAdmin)
 admin.site.register(MailingList)</code></pre>
             </p>
           </section>
-        </section> <!-- slide 6 -->
-
-        <section>
-          <section data-transition="convex">
-            <h2>Prvé view</h2>
-            <p>vim mailinglist/views.py<br />
-            <pre><code class="python"># -*- coding: utf-8 -*-
-from django.http import HttpResponse
-
-def index(request):
-    return HttpResponse(u'Ahoj Svet.\
-                        Práve ste v mailinglistovom indexe.')</code></pre>
-            </p>
-            <aside class="notes">
-V Djangu je webstránka ale aj iný obsah doručený cez view. Každé view je reprezentované Pythonovou funkciou. Django vyberie view na základe URL, ktorá bola vyžiadaná.
-            </aside>
-          </section>
-          <section data-transition="convex">
-            <h2>Prvé URLs</h2>
-            <p>vim mailinglist/urls.py</p>
-            <pre><code class="python">from django.conf.urls import url
-from mailinglist import views
-
-urlpatterns = [
-    url(r'^$', views.index, name='index'),
-]</code></pre>
-            <p>vim konferencia/urls.py</p>
-            <pre><code class="python">from django.conf.urls import include, url
-from django.contrib import admin
-
-urlpatterns = [
-    url(r'^ml/', include('mailinglist.urls')),
-    url(r'^admin/', admin.site.urls),
-]</code></pre>
-            <aside class="notes">
-Aby sa Django mohlo dostať z URL do view, používa takzvané URLconf mapy, čo je v podstate zoznam regulárnych výrazov s views.
-Ďalší krok je previazanie aplikačných URLconf s URLconf v projekte. Teraz máme previazanú aplikáciu s projektom a môžeme si pozrieť index view mailinglistu.
-            </aside>
-          </section>
         </section> <!-- slide 7 -->
 
         <section>
@@ -223,11 +228,12 @@ def mlist(request, list_id):
     try:
         ml = MailingList.objects.get(pk=list_id)
     except MailingList.DoesNotExist:
-        raise Http404(u'Mailinglist neexistuje!!!')
+        raise Http404('Mailinglist neexistuje!!!')
+
     return render(request, 'mailinglist/mlist.html', {'ml': ml})
 
 def subscribe(request, list_id):
-    return HttpResponse(u'Práve sa zapisujete do mailinglistu: %s'
+    return HttpResponse('Práve sa zapisujete do mailinglistu: %s'
                         % list_id)</code></pre>
             </p>
             <aside class="notes">
@@ -238,15 +244,15 @@ ml je objekt modelu.
           </section>
           <section data-transition="convex">
             <p>vim mailinglist/urls.py<br />
-            <pre><code class="python">from django.conf.urls import patterns, url
+            <pre><code class="python">from django.urls import path
 from mailinglist import views
 
-urlpatterns = patterns('',
-    url(r'^$', views.index, name='index'),
-    url(r'^(?P&#60;list_id&#62;\d+)/$', views.mlist, name='mlist'),
-    url(r'^(?P&#60;list_id&#62;\d+)/subscribe/$', views.subscribe,
-                                            name='subscribe'),
-)</code></pre>
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('&#60;int:list_id&#62;/', views.mlist, name='mlist'),
+    path('&#60;int:list_id&#62;/subscribe/', views.subscribe,
+                                      name='subscribe'),
+]</code></pre>
             </p>
           </section>
           <section data-transition="convex">
@@ -322,13 +328,14 @@ Django templaty používajú bodkovú notáciu na prístup k atribútom premenne
           </section>
         </section> <!-- slide 9 -->
 
-        <section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
+        <section data-transition="slide" data-background="#fff" data-background-transition="zoom">
           <h2>Ďakujem za pozornosť</h2>
           <small>
             <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
             </a><br />
-            <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Začíname s Djangom</span> vytvoril <a xmlns:cc="http://creativecommons.org/ns#" href="https://ricco386.github.io/zaciname-s-djangom/" property="cc:attributionName" rel="cc:attributionURL">Richard Kellner</a> prezentácia je licencovaná pod <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br />
-            Práca zverejnená na <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/ricco386/zaciname-s-djangom" rel="dct:source">https://github.com/ricco386/zaciname-s-djangom</a>.
+            <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Začíname s Djangom</span> vytvoril <a xmlns:cc="http://creativecommons.org/ns#" href="https://www.linkedin.com/in/richardkellner/" property="cc:attributionName" rel="cc:attributionURL">Richard Kellner</a> prezentácia je licencovaná pod <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br />
+            Práca zverejnená na <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/ricco386/zaciname-s-djangom" rel="dct:source">https://github.com/ricco386/zaciname-s-djangom</a>.<br />
+              <a href="https://www.paypal.me/ricco386" target="_blank" title="Podporte prednášku cez PayPal"><img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" border="0" alt="Logo PayPal"></a>
           </small>
         </section> <!-- slide 10 -->
 
@@ -360,23 +367,6 @@ Django templaty používajú bodkovú notáciu na prístup k atribútom premenne
         ]
       });
     </script>
-
-<!-- Piwik -->
-<script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//piwik.ricco.sk/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', 4]);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<noscript><p><img src="//piwik.ricco.sk/piwik.php?idsite=4" style="border:0;" alt="" /></p></noscript>
-<!-- End Piwik Code -->
-
   </body>
 </html>
 
