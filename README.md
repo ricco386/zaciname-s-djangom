@@ -17,7 +17,7 @@ Povieme si ako nainštalovať Django. Spravíme si jednoduchú aplikáciu, na kt
 * vytvorenie views a templateov
 * vytvorenie formulára
 
-V čase poslednej prednášky bola aktuálna verzia Djanga 2.1.7, pričom na verziu 2.10 sa odkazujú linky v materiáli a na tejto verzii aj bol prezentovaný zdrojový kód v príkladoch. Prvá prezentácia bol na verzii Djanga 1.8
+V čase poslednej prednášky bola aktuálna verzia Djanga 2.1.7, pričom na verziu 2.1 sa odkazujú linky v materiáli a na tejto verzii aj bol prezentovaný zdrojový kód v príkladoch. Prvá prezentácia bol na verzii Djanga 1.8
 
 ### Ako ďalej?
 
@@ -29,19 +29,12 @@ Zdrojové kódy k prednáške sú zverejnené pod 3-klauzulovou BSD Licenciou a 
 
 ### Podpora
 
-Support
--------
-
 Prednáška a vedomosti sú zadarmo (viď Licencia). Ak ma chcete podporiť pri tvorbe podobných prednášok, môžete ma pozvať na pivo (alebo kávu ;)
 
-.. image:: https://img.shields.io/badge/Donate-PayPal-blue.svg
-   :target: https://paypal.me/ricco386
+[![Donate PayPal](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://paypal.me/ricco386)
 
-.. image:: https://img.shields.io/badge/Donate-bitcoin-blue.svg
-   :target: https://tallyco.in/RicCo386/
+[![Donate Bitcoin](https://img.shields.io/badge/Donate-bitcoin-blue.svg)](https://tallyco.in/RicCo386/)
 
 Pre pravidelnú podporu mojich aktivít v Open Source (hlavne Python) komunite: 
 
-.. image:: http://img.shields.io/liberapay/goal/RicCo.svg?logo=liberapay
-   :target: https://liberapay.com/RicCo/donate
-
+[![Recurring Donation](http://img.shields.io/liberapay/goal/RicCo.svg?logo=liberapay)](https://liberapay.com/RicCo/donate)
