@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="reveal.js/css/reveal.css">
     <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
     <link rel="stylesheet" href="css/black-spy.css" id="theme">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <!-- Code syntax highlighting -->
     <link rel="stylesheet" href="css/sunburst.css">
@@ -50,6 +51,13 @@
           </a></p>
         </section> <!-- slide 1 -->
 
+	<section data-transition="zoom">
+          <p>join at</p>
+          <h2>slido.com</h2>
+          <h2>#webup</h2>
+          </p>
+        </section> <!-- TEMP slide -->
+
         <section>
           <h2>Čo to Django je?</h2>
           <p>Django je open source Python Web framework, ktorý využíva MVC (Model-View-Controllner) návrhový vzor.</p>
@@ -63,7 +71,7 @@
         </section> <!-- slide 2 -->
 
         <section>
-          <section ddata-transition="convex">
+          <section data-transition="convex">
             <h2>Inštalácia v Python 3.7</h2>
             <p>Vytvoríme a aktivujeme adresár envs3 pre lokálne závislosti</p>
             <p>
@@ -114,12 +122,13 @@ wget -O envs3/bin/django_bash_completion.sh https://raw.github.com/django/django
           <section data-transition="convex">
             <h2>Prvé view</h2>
             <p>vim mailinglist/views.py<br />
-            <pre><code class="python"># -*- coding: utf-8 -*-
+            <pre><code class="python" id="code1"># -*- coding: utf-8 -*-
 from django.http import HttpResponse
 
 def index(request):
     return HttpResponse('Ahoj Svet.\
                         Práve ste v mailinglistovom indexe.')</code></pre>
+              <p><i class="far fa-copy small right" onclick="selectText('code1')"></i></p>
             </p>
             <aside class="notes">
 V Djangu je webstránka ale aj iný obsah doručený cez view. Každé view je reprezentované Pythonovou funkciou. Django vyberie view na základe URL, ktorá bola vyžiadaná.
@@ -128,14 +137,15 @@ V Djangu je webstránka ale aj iný obsah doručený cez view. Každé view je r
           <section data-transition="convex">
             <h2>Prvé URLs</h2>
             <p>vim mailinglist/urls.py</p>
-            <pre><code class="python">from django.urls import path
+            <pre><code class="python" id="code2">from django.urls import path
 from mailinglist import views
 
 urlpatterns = [
     path('', views.index, name='index'),
 ]</code></pre>
+            <p><i class="far fa-copy small right" onclick="selectText('code2')"></i></p>
             <p>vim konferencia/urls.py</p>
-            <pre><code class="python">from django.contrib import admin
+            <pre><code class="python" id="code3">from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 
@@ -143,6 +153,7 @@ urlpatterns = [
     path('ml/', include('mailinglist.urls')),
     path('admin/', admin.site.urls),
 ]</code></pre>
+            <p><i class="far fa-copy small right" onclick="selectText('code3')"></i></p>
             <aside class="notes">
 Aby sa Django mohlo dostať z URL do view, používa takzvané URLconf mapy, čo je v podstate zoznam regulárnych výrazov s views.
 Ďalší krok je previazanie aplikačných URLconf s URLconf v projekte. Teraz máme previazanú aplikáciu s projektom a môžeme si pozrieť index view mailinglistu.
@@ -154,7 +165,7 @@ Aby sa Django mohlo dostať z URL do view, používa takzvané URLconf mapy, čo
           <section data-transition="convex">
             <h2>Modely</h2>
             <p>vim mailinglist/models.py</p>
-            <pre><code class="python">from django.db import models
+            <pre><code class="python" id="code4">from django.db import models
 
 class Subscriber(models.Model):
     email = models.EmailField(max_length=255)
@@ -169,6 +180,7 @@ class MailingList(models.Model):
 
     def __str__(self):  # __unicode__ on Python 2
         return self.name</code></pre>
+            <p><i class="far fa-copy small right" onclick="selectText('code4')"></i></p>
           <aside class="notes">
 Model je trieda, ktorá reprezentuje tabuľku v DB. Jej atribúty su jednotlivé stĺpce v DB. Django má veľa typov fieldov.<br />
 Každý model má implicitný primárny kľúč.
@@ -189,21 +201,21 @@ Migrácia je zoznam zmien v modeloch. Po spusteni migrácie django vykoná všet
           <section data-transition="convex">
             <h2>Tvorba Admina</h2>
             <p>python manage.py createsuperuser</p>
-            <p>vim mailinglist/admin.py<br />
-            <pre><code class="python">from django.contrib import admin
+            <p>vim mailinglist/admin.py</p>
+            <pre><code class="python" id="code5">from django.contrib import admin
 from mailinglist.models import Subscriber, MailingList
 
 admin.site.register(Subscriber)
 admin.site.register(MailingList)</code></pre>
-            </p>
+            <p><i class="far fa-copy small right" onclick="selectText('code5')"></i></p>
             <aside class="notes">
 Django pôvodne vzniklo v novinárskom prostredí, s veľmi jasným rozdielom medzi tvorcami obsahu a verejnou stránkou. Stránky na pridávanie, editovanie a mazanie obsahu databázy nepotrebujú veľa kreativity, preto túto časť Django generuje automaticky.
             </aside>
           </section>
           <section data-transition="convex">
             <h2>Modifikácia Admina</h2>
-            <p>vim mailinglist/admin.py<br />
-            <pre><code class="python">from django.contrib import admin
+            <p>vim mailinglist/admin.py</p>
+            <pre><code class="python" id="code6">from django.contrib import admin
 from mailinglist.models import Subscriber, MailingList
 
 class SubscriberAdmin(admin.ModelAdmin):
@@ -211,15 +223,15 @@ class SubscriberAdmin(admin.ModelAdmin):
 
 admin.site.register(Subscriber, SubscriberAdmin)
 admin.site.register(MailingList)</code></pre>
-            </p>
+            <p><i class="far fa-copy small right" onclick="selectText('code6')"></i></p>
           </section>
         </section> <!-- slide 7 -->
 
         <section>
           <section data-transition="convex">
             <h2>Views čo aj niečo robia</h2>
-            <p>vim mailinglist/views.py<br />
-            <pre><code class="python"># -*- coding: utf-8 -*-
+            <p>vim mailinglist/views.py</p>
+            <pre><code class="python" id="code7"># -*- coding: utf-8 -*-
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from mailinglist.models import MailingList
@@ -235,7 +247,7 @@ def mlist(request, list_id):
 def subscribe(request, list_id):
     return HttpResponse('Práve sa zapisujete do mailinglistu: %s'
                         % list_id)</code></pre>
-            </p>
+            <p><i class="far fa-copy small right" onclick="selectText('code7')"></i></p>
             <aside class="notes">
 Každé view je zodpovedné za vykonanie jednej z dvoch veci: vrátenie HttpResponse alebo hlásenie výnimky (exception).<br />
 Prvý parameter je request (ostatné sú voliteľné).<br />
@@ -243,8 +255,8 @@ ml je objekt modelu.
             </aside>
           </section>
           <section data-transition="convex">
-            <p>vim mailinglist/urls.py<br />
-            <pre><code class="python">from django.urls import path
+            <p>vim mailinglist/urls.py</p>
+            <pre><code class="python" id="code8">from django.urls import path
 from mailinglist import views
 
 urlpatterns = [
@@ -253,19 +265,19 @@ urlpatterns = [
     path('&#60;int:list_id&#62;/subscribe/', views.subscribe,
                                       name='subscribe'),
 ]</code></pre>
-            </p>
+          <p><i class="far fa-copy small right" onclick="selectText('code8')"></i></p>
           </section>
           <section data-transition="convex">
             <h2>Prvý template</h2>
             <p>mkdir -p mailinglist/templates/mailinglist</p>
             <p>vim mailinglist/templates/mailinglist/mlist.html<br />
-            <pre><code class="html"><h1>{{ ml.name }}</h1>
+            <pre><code class="html" id="code9"><h1>{{ ml.name }}</h1>
 <ul>
 {% for scb in ml.subscriber.all %}
   <li>{{ scb.email }} ({{ scb.subscribed_date }})</li>
 {% endfor %}
 </ul></code></pre>
-            </p>
+            <p><i class="far fa-copy small right" onclick="selectText('code9')"></i></p>
             <aside class="notes">
 Template slúži na oddelenie Pythonovej logiky od dizajnu a logiky, ktorá vytvára vzhľad stránky.<br />
 Django má vlastný jednoduchý templatovací jazyk.
@@ -277,8 +289,8 @@ Django má vlastný jednoduchý templatovací jazyk.
         <section>
           <section data-transition="convex">
             <h2>Prihlasovací Formulár</h2>
-            <p>vim mailinglist/forms.py<br />
-            <pre><code class="python"># -*- coding: utf-8 -*-
+            <p>vim mailinglist/forms.py</p>
+            <pre><code class="python" id="code10"># -*- coding: utf-8 -*-
 from django.forms import ModelForm
 from mailinglist.models import Subscriber
 
@@ -286,14 +298,14 @@ class SubscribeForm(ModelForm):
     class Meta:
         model = Subscriber
         fields = ('email',)</code></pre>
-            </p>
+            <p><i class="far fa-copy small right" onclick="selectText('code10')"></i></p>
             <aside class="notes">
 Django formuláre ušetria veľa času a snahy, pretože DRY princíp umožnuje automaticky generovať formular z modelu už s prednastavenou validáciou, či priame ukladanie, alebo mazanie databázového objektu.
             </aside>
           </section>
           <section data-transition="convex">
             <p>vim mailinglist/views.py</p>
-            <pre><code class="python">from django.shortcuts import render, get_object_or_404, redirect
+            <pre><code class="python" id="code11">from django.shortcuts import render, get_object_or_404, redirect
 from mailinglist.forms import SubscribeForm
 from mailinglist.models import MailingList
 
@@ -309,19 +321,20 @@ def subscribe(request, list_id):
         form = SubscribeForm()
     return render(request, 'mailinglist/subscribe.html',
                   {'ml': ml, 'form': form})</code></pre>
+            <p><i class="far fa-copy small right" onclick="selectText('code11')"></i></p>
             <aside class="notes">
 Prečo používame pomocné funkcie ako get_object_or_404 namiesto toho aby sme pri odchitení výnimky ObjectDoesNotExist raisovali Http404? Pretože to by porušilo oddelenie model vrstvy od view vrstvy. Jedena z hlavných úloh Djanga je nemiešať vrstvy dokopy, avšak pomocné funkcie v django.shortcuts zjednodušujú prácu, pričom majú určitú kontrolovanú mieru miešania vrstiev.
             </aside>
             </section>
           <section data-transition="convex">
-            <p>vim mailinglist/templates/mailinglist/subscribe.html<br />
-            <pre><code class="html"><h1>{{ ml.name }}</h1>
+            <p>vim mailinglist/templates/mailinglist/subscribe.html</p>
+            <pre><code class="html" id="code12"><h1>{{ ml.name }}</h1>
 <form method="post" action="">
   {% csrf_token %}
   {{ form.as_p }}
   <input type="submit" value="Prihlasiť do mailinglistu"/>
 </form></code></pre>
-            </p>
+            <p><i class="far fa-copy small right" onclick="selectText('code12')"></i></p>
             <aside class="notes">
 Django templaty používajú bodkovú notáciu na prístup k atribútom premennej.
             </aside>
@@ -366,6 +379,26 @@ Django templaty používajú bodkovú notáciu na prístup k atribútom premenne
           { src: 'reveal.js/plugin/notes/notes.js', async: true }
         ]
       });
+
+function selectText(node) {
+    node = document.getElementById(node);
+
+    if (document.body.createTextRange) {
+	const range = document.body.createTextRange();
+	range.moveToElementText(node);
+	range.select();
+    } else if (window.getSelection) {
+	const selection = window.getSelection();
+	const range = document.createRange();
+	range.selectNodeContents(node);
+	selection.removeAllRanges();
+	selection.addRange(range);
+    } else {
+	console.warn("Could not select text in node: Unsupported browser.");
+    }
+
+    document.execCommand("copy");
+}
     </script>
   </body>
 </html>

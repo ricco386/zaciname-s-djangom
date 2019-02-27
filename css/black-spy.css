@@ -14,3 +14,16 @@ body {
   background-repeat: no-repeat; /*Prevent showing multiple background images*/
 }
 
+.right {
+  float: right;
+  margin-right: 50px;
+}
+
+.small {
+  font-size: large;
+}
+
+.large {
+  font-size: 1.6em;
+}
+
